@@ -121,3 +121,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+SECRET_KEY = "12345-hardcoded-secret"
+DEBUG = True  # Intentionally set to True for vulnerability
+
