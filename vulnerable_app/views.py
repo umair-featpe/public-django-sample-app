@@ -1,23 +1,18 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-import sqlite3  # Using SQLite for demonstration; vulnerable to SQL injection
 
-def index(request):
-    return HttpResponse("Welcome to the Vulnerable Django App!")
+def execute_dangerous_command(request):
+    user_input = request.GET.get("cmd", "")
+    result = eval(user_input)  # Unsafe eval usage
+    return HttpResponse(f"Result: {result}")
 
-def vulnerable_sql(request):
-    # Vulnerability: SQL Injection
-    user_id = request.GET.get('user_id', '1')  # Input not validated
-    conn = sqlite3.connect('example.db')
-    cursor = conn.cursor()
-    query = f"SELECT * FROM users WHERE id = {user_id}"  # Vulnerable query
-    cursor.execute(query)
-    result = cursor.fetchall()
-    conn.close()
-    return HttpResponse(f"User data: {result}")
+def divide_numbers(request):
+    a = int(request.GET.get("a", 1))
+    b = int(request.GET.get("b", 0))
+    result = a / b  # No error handling for division by zero
+    return HttpResponse(f"Result: {result}")
 
-def hardcoded_secret(request):
-    # Vulnerability: Hardcoded Secret
-    api_key = "my-hardcoded-api-key"  # Hardcoded API key
-    return HttpResponse(f"Your API Key is: {api_key}")
+def duplicate_function_1():
+    print("This is duplicate code")
 
+def duplicate_function_2():
+    print("This is duplicate code")
